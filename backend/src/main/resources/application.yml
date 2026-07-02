@@ -22,10 +22,18 @@ spring:
       enabled: true
       path: /h2-console
 
-# CORS 허용 오리진 (프론트 Vite 개발 서버)
+# CORS 허용 오리진 패턴 (로컬 개발 + 터널/배포 도메인 허용)
+# 쿠키/인증정보 미사용이라 와일드카드 패턴 허용. 운영 시 특정 도메인으로 좁힐 것.
 app:
+  service-name: ramen-picker
   cors:
-    allowed-origins: "http://localhost:5173,http://localhost:3000"
+    allowed-origins: "*"
+  # 중앙 지표 허브로 배치 push (best-effort).
+  # url 이 비어 있으면 push 자체를 건너뜀("없으면 말고"). 원본 로그는 각 서비스에 그대로 남음.
+  metrics-hub:
+    url: ""
+    enabled: false
+    cron: "0 */10 * * * *"   # 10분마다
 
 logging:
   level:

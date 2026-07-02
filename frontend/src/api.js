@@ -51,6 +51,20 @@ export function quickRecommend(type) {
   return fetch(`${BASE}/ramen/quick-recommend?type=${encodeURIComponent(type)}`).then(handle)
 }
 
+// 지표(트래픽)
+export function recordPageView(path) {
+  // 실패해도 무시 (best-effort)
+  return fetch(`${BASE}/stats/page-view`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+    body: JSON.stringify({ path }),
+  }).catch(() => {})
+}
+
+export function getStats(days = 14) {
+  return fetch(`${BASE}/stats/summary?days=${days}`).then(handle)
+}
+
 // 관리자
 export function createRamen(request) {
   return fetch(`${BASE}/admin/ramen`, {

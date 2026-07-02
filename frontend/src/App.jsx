@@ -1,11 +1,23 @@
+import { useEffect } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { AppProvider } from './context/AppContext'
+import { recordPageView } from './api'
 import HomePage from './pages/HomePage'
 import RecommendPage from './pages/RecommendPage'
 import RecommendResultPage from './pages/RecommendResultPage'
 import RamenListPage from './pages/RamenListPage'
 import RamenDetailPage from './pages/RamenDetailPage'
 import AdminPage from './pages/AdminPage'
+import StatsPage from './pages/StatsPage'
+
+// 라우트 변경 시 페이지 방문 기록 (best-effort)
+function PageViewTracker() {
+  const location = useLocation()
+  useEffect(() => {
+    recordPageView(location.pathname)
+  }, [location.pathname])
+  return null
+}
 
 function Header() {
   const location = useLocation()
@@ -13,6 +25,7 @@ function Header() {
     { to: '/', label: '홈' },
     { to: '/recommend', label: '추천받기' },
     { to: '/ramen', label: '라면 목록' },
+    { to: '/stats', label: '지표' },
     { to: '/admin', label: '관리자' },
   ]
   return (
@@ -39,6 +52,7 @@ function Header() {
 export default function App() {
   return (
     <AppProvider>
+      <PageViewTracker />
       <Header />
       <main className="container">
         <Routes>
@@ -47,6 +61,7 @@ export default function App() {
           <Route path="/recommend/result" element={<RecommendResultPage />} />
           <Route path="/ramen" element={<RamenListPage />} />
           <Route path="/ramen/:id" element={<RamenDetailPage />} />
+          <Route path="/stats" element={<StatsPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>

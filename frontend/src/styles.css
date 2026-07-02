@@ -213,7 +213,57 @@ h1, h2, h3 { margin: 0 0 8px; }
 .error-box { background: #fff0f0; border: 1px solid #ffc0c0; color: var(--danger); padding: 12px 16px; border-radius: 10px; }
 .empty-state { text-align: center; color: var(--muted); padding: 40px 0; }
 
+/* ===== 지표 대시보드 ===== */
+/* 시리즈 색: API=기존 primary(주황), PAGE=보조 블루 */
+:root {
+  --series-api: var(--primary);
+  --series-page: #2f7fb5;
+  --series-page-soft: #d6e8f3;
+}
+.stats-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 8px; }
+.kpi-tile {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px;
+}
+.kpi-label { color: var(--muted); font-size: 14px; font-weight: 600; }
+.kpi-value { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.kpi-api { color: var(--series-api); }
+.kpi-page { color: var(--series-page); }
+
+.stats-section { margin-top: 28px; }
+.stats-section h2 { font-size: 18px; color: var(--primary-dark); margin-bottom: 12px; }
+
+.chart-wrap { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+.chart-legend { display: flex; gap: 16px; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.chart-legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.dot-api { background: var(--series-api); }
+.dot-page { background: var(--series-page); }
+
+.daily-chart { display: flex; align-items: flex-end; gap: 6px; height: 180px; overflow-x: auto; padding-top: 4px; }
+.day-col { flex: 1; min-width: 26px; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
+.day-col .bars { flex: 1; display: flex; align-items: flex-end; gap: 3px; width: 100%; justify-content: center; }
+.bar { width: 40%; min-height: 2px; border-radius: 3px 3px 0 0; transition: height 0.2s; }
+.bar-api { background: var(--series-api); }
+.bar-page { background: var(--series-page); }
+.day-label { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.path-bars { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.path-row { display: grid; grid-template-columns: 52px minmax(120px, 1.4fr) 3fr auto; align-items: center; gap: 10px; }
+.kind-chip { font-size: 11px; font-weight: 700; text-align: center; border-radius: 8px; padding: 3px 0; }
+.chip-api { background: #ffe0d0; color: var(--primary-dark); }
+.chip-page { background: var(--series-page-soft); color: #1f5b82; }
+.path-name { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.path-track { background: var(--line); border-radius: 6px; height: 12px; overflow: hidden; }
+.path-fill { display: block; height: 100%; border-radius: 6px; }
+.fill-api { background: var(--series-api); }
+.fill-page { background: var(--series-page); }
+.path-count { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); min-width: 40px; text-align: right; }
+
 @media (max-width: 700px) {
   .admin-layout { grid-template-columns: 1fr; }
   .hero h1 { font-size: 36px; }
+  .kpi-row { grid-template-columns: 1fr; }
+  .path-row { grid-template-columns: 46px 1fr auto; }
+  .path-track { display: none; }
 }

@@ -10,6 +10,9 @@ frontend/node_modules/
 frontend/dist/
 frontend/.vite/
 
+# 프론트 빌드 산출물(백엔드가 서빙). `npm run build` 로 재생성되므로 커밋 제외.
+backend/src/main/resources/static/
+
 # ===== IDE =====
 .idea/
 *.iml
